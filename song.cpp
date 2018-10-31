@@ -39,4 +39,26 @@ int Song::getSongSize() const{
     return songSize;
 }
 
+int Song::compareSongs(Song const &s1, Song const &s2){
+
+    cout << "title:  " << s1.getTitle() << " " << s2.getTitle() << endl;
+
+    if(s1.getArtist() > s2.getArtist()){
+        cout << "swap artists:  " << s1.getArtist() << " " << s2.getArtist() << endl;
+        return 0;
+    }
+    else if (s1.getTitle() > s2.getTitle()){
+        cout << "swap title:  " << s1.getTitle() << " " << s2.getTitle() << endl;
+        return 0;
+    }
+    else if(s1.getSongSize() > s2.getSongSize()){
+        cout << "swap size:  " << s1.getSongSize() << " " << s2.getSongSize() << endl;
+        return 0;
+    }
+    else{
+        return -2;
+    }
+
+
+}
 

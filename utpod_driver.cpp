@@ -21,9 +21,6 @@ int main(int argc, char *argv[]) {
     UtPod t;
 
     Song s1("Beatles", "Hey Jude1", 4);     // creates object "s1" from Song class
-    //s1.getArtist();
-    //s1.getTitle();
-    //s1.getSongSize();
     int result = t.addSong(s1);
     cout << "result = " << result << endl;
 
@@ -35,6 +32,7 @@ int main(int argc, char *argv[]) {
 
     t.showSongList();
 
+    cout << "Want to remove: s2" << endl;
     t.removeSong(s2);
 
     t.showSongList();
@@ -47,11 +45,29 @@ int main(int argc, char *argv[]) {
 
     t.showSongList();
 
-    t.removeSong(s3);
+    cout << "Want to remove: s2" << endl;
+    t.removeSong(s2);
 
     t.showSongList();
 
-/*    Song s4("Beatles", "Hey Jude4", 7);
+    int totalMem = t.getTotalMemory();
+    int remainingMem = t.getRemainingMemory();
+
+    cout << "Total memory: " << totalMem << " MB" << endl;
+    cout << "Remaining memory: " << remainingMem << " MB" << endl;
+
+    Song sA("A", "B", 5);
+    result = t.removeSong(sA);
+    cout << "result = " << result << endl;
+
+
+    t.addSong(s2);
+    t.showSongList();
+    t.sortSongList();
+    t.showSongList();
+
+
+    Song s4("Beatles", "Hey Jude4", 7);
     result = t.addSong(s4);
     cout << "result = " << result << endl;
 
@@ -60,8 +76,11 @@ int main(int argc, char *argv[]) {
     cout << "add result = " << result << endl;
 
     t.showSongList();
+    t.sortSongList();
+    t.showSongList();
+    t.shuffle();
 
-    result = t.removeSong(s2);
+/*    result = t.removeSong(s2);
     cout << "delete result = " << result << endl;
 
     result = t.removeSong(s3);

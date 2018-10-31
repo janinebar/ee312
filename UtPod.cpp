@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <ctime>
 #include "UtPod.h"
 #include "song.h"
 
@@ -41,21 +42,27 @@ UtPod::~UtPod() {}
 // argument: object "s" from Song class
 int UtPod::addSong(Song const &s){
 
-    SongNode* temp = new SongNode;
+    if (getRemainingMemory() > s.getSongSize()) {
+
+        SongNode *temp = new SongNode;
 
 
-    temp->s = s; // creates object "s" from Song class
-    temp->next = songs;
-    songs = temp;   //newly added song is now on top
+        temp->s = s; // creates object "s" from Song class
+        temp->next = songs;
+        songs = temp;   //newly added song is now on top
 
-    // DEBUG //
-    cout << "MADE NODE:" << endl;
-    cout << "artist: " << songs->s.getArtist() << endl;
-    cout << "title: " << songs->s.getTitle() << endl;
-    cout << "song size: " << songs->s.getSongSize() << "\n" << endl;
-    // ****** //
+        // DEBUG //
+        cout << "MADE NODE:" << endl;
+        cout << "artist: " << songs->s.getArtist() << endl;
+        cout << "title: " << songs->s.getTitle() << endl;
+        cout << "song size: " << songs->s.getSongSize() << "\n" << endl;
+        // ****** //
 
-    return SUCCESS;
+        return SUCCESS;
+    }
+    else {
+        return NO_MEMORY;
+    }
 
 }
 
@@ -75,8 +82,8 @@ int UtPod::removeSong(Song const &s){
     int beforeSize = before->s.getSongSize();
 
     // DEBUG //
-    cout << "remove: " << beforeTitle << ", ";
-    cout << beforeArtist << ", " << beforeSize << endl;
+    cout << "remove: " << s.getTitle() << ", ";
+    cout << s.getArtist() << ", " << s.getSongSize() << endl;
     // ******* //
 
     // if head is song want to remove, change head's next to before's next
@@ -97,23 +104,31 @@ int UtPod::removeSong(Song const &s){
     // otherwise, traverse thru linked list to find song to remove
     else {
 
-        while (before != NULL) {
+        cout << "Traverse linked list to remove song" << endl;
+        while (before->next != NULL) {
 
             // look at the NEXT node
             beforeTitle = before->next->s.getTitle();
             beforeArtist = before->next->s.getArtist();
             beforeSize = before->next->s.getSongSize();
 
+            cout << "searching: " << beforeTitle << ", ";
+            cout << beforeArtist << ", " << beforeSize << endl;
+
             if((beforeArtist == s.getArtist()) && (beforeTitle == s.getTitle()) && (beforeSize == s.getSongSize())){
                 before->next = before->next->next; //removes song node from linked list
                 result = SUCCESS;
+
+                // DEBUG //
+                cout << "before now pointing to: " << before->next->s.getTitle() << endl;
+
             }
 
             before = before->next;  //if haven't found, point to next song node
 
         }
 
-        if(before == NULL){
+        if(before->next == NULL){
             result = NOT_FOUND;
         }
 
@@ -126,7 +141,32 @@ int UtPod::removeSong(Song const &s){
 }
 
 // swapping done here, comparison done in song.cpp
-void shuffle();
+void UtPod::shuffle(){
+
+    cout << "Shuffling.........." << endl;
+
+    SongNode *ctr = songs;
+    int songSum = 0;
+
+    while(ctr != NULL){
+
+        songSum++;
+        ctr = ctr->next;
+
+    }
+
+    cout << "songSum: " << songSum << endl;
+
+    unsigned int currentTime =  (unsigned)time(0);
+    cout << "current time " << currentTime << endl;
+    srand(currentTime);
+    cout << rand() << endl;
+    cout << rand() << endl;
+    cout << rand() << endl;
+
+
+
+}
 
 
 
@@ -156,7 +196,60 @@ void UtPod::showSongList(){
 
 
 // swapping done here, comparison done in song.cpp
-void sortSongList();
+void UtPod::sortSongList(){
+
+    cout << "Sorting.........." << endl;
+
+    SongNode  *ptr1 = songs;
+    SongNode *traverser = songs->next;
+    SongNode *songsHolder;
+    int nullCtr = 0;
+
+    cout << "sorting... " << ptr1->s.getTitle() << ", " << traverser->s.getTitle() << endl;
+
+    SongNode *temp;
+    SongNode *temp2 = new SongNode;
+    temp2->s = ptr1->s;
+    temp2->next = NULL;
+
+    while (ptr1->next != NULL) {
+        while(traverser != NULL) {
+
+            int compareResult = ptr1->s.compareSongs(ptr1->s, traverser->s);
+            if (compareResult == SUCCESS) { //if traverser belongs BEFORE ptr1
+
+                cout << "compare SUCCESS" << endl;
+                temp2->s = traverser->s;
+                traverser->s = ptr1->s;
+                ptr1->s = temp2->s;
+                cout << "SWAP SUCCESS" << endl;
+
+
+            }
+            else {
+                cout << "compare NOT SUCCESSFUL" << endl;
+            }
+
+            //whileChecker = traverser->next;
+            if(traverser != NULL) {
+                traverser = traverser->next;
+            }
+
+
+
+        }
+
+
+        ptr1 = ptr1->next;
+        traverser = ptr1->next;
+
+        cout << "ptr1 moved" << endl;
+
+
+
+    }
+
+}
 
 
 

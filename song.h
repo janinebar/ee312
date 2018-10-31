@@ -25,7 +25,7 @@ class Song {
     string getTitle() const;
     string getArtist() const;
     int getSongSize() const;
-    int compareSongs();
+    int compareSongs(Song const &s1, Song const &s2);
 
     ~Song();
 
