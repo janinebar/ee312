@@ -78,23 +78,52 @@ int main(int argc, char *argv[]) {
     t.showSongList();
     t.sortSongList();
     t.showSongList();
-    t.shuffle();
+   // t.shuffle();
+    t.showSongList();
 
-/*    result = t.removeSong(s2);
+    totalMem = t.getTotalMemory();
+    remainingMem = t.getRemainingMemory();
+
+    cout << "Total memory: " << totalMem << " MB" << endl;
+    cout << "Remaining memory: " << remainingMem << " MB" << endl;
+
+    Song s6("Title", "Artist", 250);
+    result = t.addSong(s6);
+    cout << "result = " << result << endl;
+
+    t.showSongList();
+
+
+
+    result = t.removeSong(s2);
     cout << "delete result = " << result << endl;
+
+    cout << "memory = " << t.getRemainingMemory() << endl;
 
     result = t.removeSong(s3);
     cout << "delete result = " << result << endl;
+    cout << "memory = " << t.getRemainingMemory() << endl;
 
     t.showSongList();
 
     result = t.removeSong(s1);
     cout << "delete result = " << result << endl;
+    cout << "memory = " << t.getRemainingMemory() << endl;
+
+    t.showSongList();
 
     result = t.removeSong(s5);
     cout << "delete result = " << result << endl;
+    cout << "memory = " << t.getRemainingMemory() << endl;
+
+    t.showSongList();
 
     result = t.removeSong(s4);
+    cout << "delete result = " << result << endl;
+    cout << "memory = " << t.getRemainingMemory() << endl;
+
+    Song s7("Title", "Artist", 15);
+    result = t.removeSong(s7);
     cout << "delete result = " << result << endl;
 
 
@@ -104,8 +133,8 @@ int main(int argc, char *argv[]) {
     cout << "add result = " << result << endl;
 
     t.showSongList();
-    cout << "memory = " << t.getRemainingMemory() << endl;
+    cout << "memory = " <<t.getRemainingMemory() << endl;
 
-    */
+
 
 }
