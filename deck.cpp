@@ -13,12 +13,23 @@
 using namespace std;
 
 Deck::Deck() {
-    for(int i=0;i<52;i++;){
-        for(intj=0;j<4j++){
-            myCards[i].getRank();
-        }
+    for(int i=1;i<14;i++;){
+        Card object = new Card(i, spades);
+        myCards[i-1] = object;
     }
-    myIndex=0;
+    for(int i=14;i<27;i++;){
+        Card object = new Card(i, hearts);
+        myCards[i-1] = object;
+    }
+    for(int i=27;i<40;i++;){
+        Card object = new Card(i, clubs);
+        myCards[i-1] = object;
+    }
+    for(int i=40;i<53;i++;){
+        Card object = new Card(i, diamonds);
+        myCards[i-1] = object;
+    }
+    myIndex=SIZE-1;
 }
 
 void Deck::shuffle() {
@@ -37,6 +48,7 @@ void Deck::shuffle() {
 }
 
 Card Deck::dealCard(){
+
     SIZE--;
 }
 

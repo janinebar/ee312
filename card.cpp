@@ -12,7 +12,7 @@ Card::~Card(){}
 
 
 
-Card(int rank, Suit s);{
+Card::Card(int rank, Suit s);{
     myRank = rank;
     mySuit = s;
 }
@@ -21,11 +21,21 @@ Card(int rank, Suit s);{
 // return string version e.g. Ac 4h Js
 string Card::toString(){
 
+    // turn rank int to string
+    printRank = to
+    if (mySuit == spades){
+        char printSuit = "s";
+    }
+
+    str result = printRank + " " + printSuit;
+    cout << result << endl;
+    return result;
+
 }
 
 // true if suit same as c
 bool Card::sameSuitAs(const Card& c) const{
-    if ()
+    if (mySuit==c)
 }
 
 // return rank, 1..13
@@ -50,12 +60,12 @@ string Card::suitString(Suit s) const{
 }
 
 // return "A", "2", ..."Q"
-string rankString(int r) const{
+string Card::rankString(int r) const{
     if(r==1){
         return "A";
     }
     if(r>1&&r<11){
-        string number = to_string r;
+        string number = to_string (r);
         return number;
     }
     if(r==11){
