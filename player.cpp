@@ -16,3 +16,10 @@ Player::Player() {}
 void Player::addCard(Card c) {
     myHand.push_back(c);
 }
+
+int Player::getHandSize() const {
+   return myHand.size();
+}
+int Player::getBookSize() const {
+    return myBook.size();
+}
