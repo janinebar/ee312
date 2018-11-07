@@ -19,8 +19,8 @@ int main( )
 {
     int numCards = 5;
 
-    Player p1("Joe");
-    Player p2("Jane");
+    Player p1("Asad");
+    Player p2("Janine");
 
     Deck d;  //create a deck of cards
     d.shuffle();
