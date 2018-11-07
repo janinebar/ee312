@@ -37,7 +37,7 @@ void Deck::shuffle() {
 }
 
 Card Deck::dealCard(){
-    size(SIZE--);
+    SIZE--;
 }
 
 int  Deck::size() const{
