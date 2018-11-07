@@ -22,12 +22,20 @@ Card::Card(int rank, Suit s);{
 string Card::toString(){
 
     // turn rank int to string
-    printRank = to
+    printRank = to_string (myRank);
     if (mySuit == spades){
         char printSuit = "s";
     }
-
-    str result = printRank + " " + printSuit;
+    if (mySuit == hearts){
+        char printSuit = "h";
+    }
+    if (mySuit == clubs){
+        char printSuit = "c";
+    }
+    if (mySuit == diamonds){
+        char printSuit = "d";
+    }
+    str result = printRank + printSuit;
     cout << result << endl;
     return result;
 

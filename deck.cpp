@@ -48,8 +48,10 @@ void Deck::shuffle() {
 }
 
 Card Deck::dealCard(){
-
+    Card dealt = new Card;
+    dealt = myCards[myIndex];
     SIZE--;
+    return dealt;
 }
 
 int  Deck::size() const{
