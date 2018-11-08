@@ -26,10 +26,11 @@ void Player::bookCards(Card c1, Card c2) {
 
 Card Player::chooseCardFromHand() const {
     Card ask;
-/*    unsigned int currentTime =  (unsigned)time(0);
+    unsigned int currentTime =  (unsigned)time(0);
     srand(currentTime);
     int player_index=0;
-    player_index = (rand() % 13) + 1;*/
+    player_index = (rand() % myHand.size());
+    return myHand[player_index];
 }
 
 bool Player::cardInHand(Card c) const{
