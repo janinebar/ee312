@@ -24,6 +24,19 @@ void Player::bookCards(Card c1, Card c2) {
     myHand.pop_back(c2);
 }
 
+bool Player::cardInHand(Card c) const{
+    for(int i=0; i<myHand.size(); i++){
+        if(myHand[i]==c){
+            return true;
+        }
+    }
+    return false;
+}
+
+Card Player::removeCardFromHand(Card c){
+    
+}
+
 string Player::showHand() const {
 /*    for(int i=0;i<myHand.size();i++){
         cout<<myHand[i] <<endl;
