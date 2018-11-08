@@ -19,14 +19,14 @@ void Player::addCard(Card c) {
 
 void Player::bookCards(Card c1, Card c2) {
     myBook.push_back(c1);
-    myHand.pop_back(c1);
+//    myHand.pop_back();
     myBook.push_back(c2);
-    myHand.pop_back(c2);
+//    myHand.pop_back();            not sure if these pop_back lines are right
 }
 
 bool Player::cardInHand(Card c) const{
     for(int i=0; i<myHand.size(); i++){
-        if(myHand[i]==c){
+        if(myHand[i]==c){                       //not sure if we're just checking rank or the whole card
             return true;
         }
     }
