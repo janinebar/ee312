@@ -46,9 +46,11 @@ Card Player::removeCardFromHand(Card c){
 }
 
 string Player::showHand() const {
-/*    for(int i=0;i<myHand.size();i++){
-        cout<<myHand[i] <<endl;
-    }*/
+    string current;
+    for(int i=0;i<myHand.size();i++){
+        current = myHand[i].toString();
+        cout<<current <<endl;
+    }
 }
 
 int Player::getHandSize() const {
