@@ -18,15 +18,15 @@ Deck::Deck() {
         myCards[i-1] = *object;
     }
     for(int i=14;i<27;i++){
-        Card *object = new Card(i, Card::hearts);
+        Card *object = new Card(i-13, Card::hearts);
         myCards[i-1] = *object;
     }
     for(int i=27;i<40;i++){
-        Card *object = new Card(i, Card::clubs);
+        Card *object = new Card(i-26, Card::clubs);
         myCards[i-1] = *object;
     }
     for(int i=40;i<53;i++){
-        Card *object = new Card(i, Card::diamonds);
+        Card *object = new Card(i-39, Card::diamonds);
         myCards[i-1] = *object;
     }
     myIndex=SIZE-1;
@@ -51,7 +51,7 @@ Card Deck::dealCard(){
     if(SIZE>0) {
         Card dealt;
         dealt = myCards[myIndex];
-        SIZE--;
+     //   SIZE--;
         return dealt;
     }
 }
