@@ -29,7 +29,7 @@ Deck::Deck() {
         Card *object = new Card(i-39, Card::diamonds);
         myCards[i-1] = *object;
     }
-    myIndex=SIZE-1;
+    myIndex=0;
 }
 
 void Deck::shuffle() {
@@ -51,11 +51,11 @@ Card Deck::dealCard(){
     if(SIZE>0) {
         Card dealt;
         dealt = myCards[myIndex];
-     //   SIZE--;
+        myIndex++;
         return dealt;
     }
 }
 
 int  Deck::size() const{
-    return SIZE;
+    return SIZE-myIndex;
 }
