@@ -14,7 +14,7 @@ using namespace std;
 
 Deck::Deck() {
     for(int i=1;i<14;i++;){
-        Card object = new Card(i, spades);
+        Card object = new Card(i, spades);  //not letting us use the suits for some reason
         myCards[i-1] = object;
     }
     for(int i=14;i<27;i++;){
@@ -51,7 +51,7 @@ Card Deck::dealCard(){
     if(SIZE>0) {
         Card dealt = new Card;
         dealt = myCards[myIndex];
-        SIZE--;
+        SIZE--;                                           //saying we can't do SIZE-- for some reason
         return dealt;
     }
 }
