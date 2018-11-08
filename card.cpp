@@ -18,8 +18,22 @@ Card::Card(int rank, Card::Suit s) {
 string Card::toString() const {
 
     // turn rank int to string
+    string printRank;
     string printSuit;
-    string printRank = to_string (myRank);
+    if(myRank==1){
+        printRank = "A";
+    }
+    if(myRank==11){
+        printRank = "J";
+    }
+    if(myRank==12){
+        printRank = "Q";
+    }
+    if(myRank==13){
+        printRank = "K";
+    } else {
+        printRank = to_string(myRank);
+    }
     if (mySuit == spades){
         printSuit = "s";
     }
