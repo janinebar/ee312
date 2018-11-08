@@ -19,9 +19,9 @@ void Player::addCard(Card c) {
 
 void Player::bookCards(Card c1, Card c2) {
     myBook.push_back(c1);
- //   myHand.pop_back();
+    removeCardFromHand(c1);
     myBook.push_back(c2);
- //   myHand.pop_back();
+    removeCardFromHand(c2);
 }
 
 Card Player::chooseCardFromHand() const {
@@ -42,8 +42,19 @@ bool Player::cardInHand(Card c) const{
     return false;
 }
 
-Card Player::removeCardFromHand(Card c){
-
+Card Player::removeCardFromHand(Card c){        //not 100% sure if this is right, basically cheks if a card in the hand
+    Card *object;                               //matches the input and returns that card and deletes it from the hand
+    Card *temp;
+    for(int i=0;i<myHand.size()-1;i++){
+        if(myHand[i]==c){
+            *object=myHand[i];
+            *temp = myHand[myHand.size()-1];
+            myHand[myHand.size()-1]=myHand[i];
+            myHand[i]=*temp;
+            myHand.pop_back();
+            return *object;
+        }
+    }
 }
 
 string Player::showHand() const {
