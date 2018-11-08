@@ -19,14 +19,22 @@ void Player::addCard(Card c) {
 
 void Player::bookCards(Card c1, Card c2) {
     myBook.push_back(c1);
-//    myHand.pop_back();
+ //   myHand.pop_back();
     myBook.push_back(c2);
-//    myHand.pop_back();            not sure if these pop_back lines are right
+ //   myHand.pop_back();
+}
+
+Card Player::chooseCardFromHand() const {
+    Card ask;
+/*    unsigned int currentTime =  (unsigned)time(0);
+    srand(currentTime);
+    int player_index=0;
+    player_index = (rand() % 13) + 1;*/
 }
 
 bool Player::cardInHand(Card c) const{
     for(int i=0; i<myHand.size(); i++){
-        if(myHand[i]==c){                       //not sure if we're just checking rank or the whole card
+        if(myHand[i].getRank()==c.getRank()){
             return true;
         }
     }
@@ -34,7 +42,7 @@ bool Player::cardInHand(Card c) const{
 }
 
 Card Player::removeCardFromHand(Card c){
-    
+
 }
 
 string Player::showHand() const {
@@ -44,7 +52,7 @@ string Player::showHand() const {
 }
 
 int Player::getHandSize() const {
-   return myHand.size();
+    return myHand.size();
 }
 int Player::getBookSize() const {
     return myBook.size();

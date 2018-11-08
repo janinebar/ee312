@@ -13,21 +13,21 @@
 using namespace std;
 
 Deck::Deck() {
-    for(int i=1;i<14;i++;){
-        Card object = new Card(i, spades);  //not letting us use the suits for some reason
-        myCards[i-1] = object;
+    for(int i=1;i<14;i++){
+        Card *object = new Card(i, Card::spades);
+        myCards[i-1] = *object;
     }
-    for(int i=14;i<27;i++;){
-        Card object = new Card(i, hearts);
-        myCards[i-1] = object;
+    for(int i=14;i<27;i++){
+        Card *object = new Card(i, Card::hearts);
+        myCards[i-1] = *object;
     }
-    for(int i=27;i<40;i++;){
-        Card object = new Card(i, clubs);
-        myCards[i-1] = object;
+    for(int i=27;i<40;i++){
+        Card *object = new Card(i, Card::clubs);
+        myCards[i-1] = *object;
     }
-    for(int i=40;i<53;i++;){
-        Card object = new Card(i, diamonds);
-        myCards[i-1] = object;
+    for(int i=40;i<53;i++){
+        Card *object = new Card(i, Card::diamonds);
+        myCards[i-1] = *object;
     }
     myIndex=SIZE-1;
 }
@@ -49,9 +49,9 @@ void Deck::shuffle() {
 
 Card Deck::dealCard(){
     if(SIZE>0) {
-        Card dealt = new Card;
+        Card dealt;
         dealt = myCards[myIndex];
-        SIZE--;                                           //saying we can't do SIZE-- for some reason
+        SIZE--;
         return dealt;
     }
 }

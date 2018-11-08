@@ -4,38 +4,35 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
-#include "card.h'
+#include "card.h"
 
+Card::Card() {}
 
-Card::Card(){}
-Card::~Card(){}
-
-
-
-Card::Card(int rank, Suit s);{
-    myRank = rank;
-    mySuit = s;
+Card::Card(int rank, Card::Suit s) {
+    myRank=rank;
+    mySuit=s;
 }
 
 
 // return string version e.g. Ac 4h Js
-string Card::toString(){
+string Card::toString() const {
 
     // turn rank int to string
-    printRank = to_string (myRank);
+    string printSuit;
+    string printRank = to_string (myRank);
     if (mySuit == spades){
-        char printSuit = "s";
+        printSuit = "s";
     }
     if (mySuit == hearts){
-        char printSuit = "h";
+        printSuit = "h";
     }
     if (mySuit == clubs){
-        char printSuit = "c";
+        printSuit = "c";
     }
     if (mySuit == diamonds){
-        char printSuit = "d";
+        printSuit = "d";
     }
-    str result = printRank + printSuit;
+    string result = printRank + printSuit;
     cout << result << endl;
     return result;
 
@@ -43,7 +40,7 @@ string Card::toString(){
 
 // true if suit same as c
 bool Card::sameSuitAs(const Card& c) const{
-//    if (mySuit==c)
+    //if (mySuit==c.)
 }
 
 // return rank, 1..13
