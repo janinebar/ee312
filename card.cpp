@@ -6,34 +6,24 @@
 #include <cstdlib>
 #include "card.h"
 
-Card::Card() {}
 
-Card::Card(int rank, Card::Suit s) {
-    myRank=rank;
-    mySuit=s;
+Card::Card(){}
+//Card::~Card(){}
+
+
+
+Card::Card(int rank, Suit s){
+    myRank = rank;
+    mySuit = s;
 }
 
 
 // return string version e.g. Ac 4h Js
-string Card::toString() const {
+string Card::toString() const{
 
     // turn rank int to string
-    string printRank;
     string printSuit;
-    if(myRank==1){
-        printRank = "A";
-    }
-    if(myRank==11){
-        printRank = "J";
-    }
-    if(myRank==12){
-        printRank = "Q";
-    }
-    if(myRank==13){
-        printRank = "K";
-    } else {
-        printRank = to_string(myRank);
-    }
+    string printRank = to_string(myRank);
     if (mySuit == spades){
         printSuit = "s";
     }
@@ -47,15 +37,15 @@ string Card::toString() const {
         printSuit = "d";
     }
     string result = printRank + printSuit;
-    cout << result << endl;
+    //cout << result << endl;
     return result;
 
 }
 
 // true if suit same as c
-bool Card::sameSuitAs(const Card& c) const{
-    //if (mySuit==c.)
-}
+/*bool Card::sameSuitAs(const Card& c) const{
+ //   if (mySuit==c)
+}*/
 
 // return rank, 1..13
 int  Card::getRank() const{
@@ -97,3 +87,7 @@ string Card::rankString(int r) const{
         return "K";
     }
 }
+
+
+/*bool Card::operator == (const Card& rhs) const;
+bool Card::operator != (const Card& rhs) const; */

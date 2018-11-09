@@ -1,3 +1,4 @@
+
 #include <iostream>
 
 #include <string>
@@ -30,32 +31,60 @@ Deck::Deck() {
         myCards[i-1] = *object;
     }
     myIndex=0;
+
+  /*  // DEBUG //
+   for(int j = 0; j < 52; j++){
+        cout << myCards[j].toString() << endl;
+    }
+
+    cout << "\n" << endl; */
+
 }
 
 void Deck::shuffle() {
     unsigned int currentTime =  (unsigned)time(0);
     srand(currentTime);
-    int deck_index1=0;
-    int deck_index2=0;
-    Card temp[1];
+    int deck_index1 = 0;
+    int deck_index2 = 0;
+
+    Card temp[1];  // holds card to be swapped
     for(int i=0;i<SIZE;i++) {
-        deck_index1 = (rand() % size()) + 1;
-        deck_index2 = (rand() % size()) + 1;
+        deck_index1 = (rand() % size());
+        deck_index2 = (rand() % size());
+
+        //cout << "indexes: " << deck_index1 << " " << deck_index2 << endl;
+        //cout << "swap: " << myCards[deck_index1].toString() << " " << myCards[deck_index2].toString() << endl;
+
         temp[0] = myCards[deck_index2];
         myCards[deck_index2] = myCards[deck_index1];
         myCards[deck_index1] = temp[0];
     }
+
+    // DEBUG //
+    for(int j = 0; j < 52; j++){
+         cout << myCards[j].toString() << endl;
+     }
 }
 
 Card Deck::dealCard(){
-    if(SIZE>0) {
+    if(size() > 0) {
         Card dealt;
         dealt = myCards[myIndex];
+        cout << "index " << myIndex << endl;
         myIndex++;
         return dealt;
     }
 }
 
 int  Deck::size() const{
+
+    int testSize = SIZE-myIndex;
+
+    // DEBUG //
+   /* for(int j = 0; j < testSize; j++){
+        cout << myCards[j].toString() << endl;
+    }
+    // */
+
     return SIZE-myIndex;
 }

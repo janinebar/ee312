@@ -17,12 +17,12 @@ void Player::addCard(Card c) {
     myHand.push_back(c);
 }
 
-void Player::bookCards(Card c1, Card c2) {
+/*void Player::bookCards(Card c1, Card c2) {
     myBook.push_back(c1);
     removeCardFromHand(c1);
     myBook.push_back(c2);
     removeCardFromHand(c2);
-}
+} */
 
 Card Player::chooseCardFromHand() const {
     Card ask;
@@ -42,7 +42,7 @@ bool Player::cardInHand(Card c) const{
     return false;
 }
 
-Card Player::removeCardFromHand(Card c){        //not 100% sure if this is right, basically cheks if a card in the hand
+/*Card Player::removeCardFromHand(Card c){        //not 100% sure if this is right, basically cheks if a card in the hand
     Card *object;                               //matches the input and returns that card and deletes it from the hand
     Card *temp;
     for(int i=0;i<myHand.size()-1;i++){
@@ -55,14 +55,19 @@ Card Player::removeCardFromHand(Card c){        //not 100% sure if this is right
             return *object;
         }
     }
-}
+} */
 
 string Player::showHand() const {
     string current;
+    string outHand;
     for(int i=0;i<myHand.size();i++){
         current = myHand[i].toString();
-        cout<<current <<endl;
+        //cout << "current card " << current << endl;
+        outHand = outHand + " " + current;
+        //cout << "outhand " << outHand << endl;
     }
+
+    return outHand;
 }
 
 int Player::getHandSize() const {
