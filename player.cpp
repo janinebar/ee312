@@ -1,11 +1,12 @@
 //
-// Created by asada on 11/6/2018.
+// Created by Asad Ahmed and Janine Bariuan on 11/6/2018.
 //
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <ctime>
+#include <cstdlib>
 
 #include "card.h"
 #include "deck.h"

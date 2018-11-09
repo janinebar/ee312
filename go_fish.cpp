@@ -2,6 +2,7 @@
 // This is a small demonstration program showing how the Card and Deck classes are used.
 #include <iostream>    // Provides cout and cin
 #include <cstdlib>     // Provides EXIT_SUCCESS
+#include <string>
 #include "card.h"
 #include "player.h"
 #include "deck.h"
@@ -151,7 +152,7 @@ int main( )
 
             Card askercardChosen = currentAsker.chooseCardFromHand();
             int askerrankChosen = askercardChosen.getRank();
-            outputfile << askerName << " asks: Do you have a " << askerrankChosen << "?" << endl;
+            outputfile << askerName << " asks: Do you have a " << askercardChosen.rankString(askerrankChosen) << "?" << endl;
 
             /* Go thru p2 deck and see if have same rank as p1's card
              * IF MATCH
@@ -167,7 +168,7 @@ int main( )
             // checking through P2's hand to see if matches
             if (currentAnswerer.sameRankInHand(askercardChosen)) {
                // cout << "same rank true" << endl;
-                outputfile << answererName << ": Yes, I have a " << askerrankChosen << "." << endl;
+                outputfile << answererName << ": Yes, I have a " << askercardChosen.rankString(askerrankChosen) << "." << endl;
 
                 //answerer's hand now changes below
                 Card answererCardMatched = currentAnswerer.removeCardFromHand(askercardChosen);
@@ -189,7 +190,7 @@ int main( )
               //  outputfile << "after removed -- " <<  currentAsker.getName() << " hand now: " << currentAsker.showHand() << endl ;
               //  outputfile << currentAnswerer.getName() << "'s hand now: " << currentAnswerer.showHand() << endl;
 
-              outputfile << currentAsker.getName() << " books the " << askercardChosen.getRank() << endl;
+              outputfile << currentAsker.getName() << " books the " << askercardChosen.rankString(askerrankChosen) << endl;
 
             // go fish
             } else {
