@@ -60,17 +60,17 @@ void Deck::shuffle() {
         myCards[deck_index1] = temp[0];
     }
 
-    // DEBUG //
+   /* // DEBUG //
     for(int j = 0; j < 52; j++){
          cout << myCards[j].toString() << endl;
-     }
+     } */
 }
 
 Card Deck::dealCard(){
     if(size() > 0) {
         Card dealt;
         dealt = myCards[myIndex];
-        cout << "index " << myIndex << endl;
+       // cout << "index " << myIndex << endl;
         myIndex++;
         return dealt;
     }
