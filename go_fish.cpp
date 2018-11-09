@@ -21,7 +21,7 @@ int main( )
 
     ofstream outputfile;
 
-    outputfile.open("gofish.txt");
+    outputfile.open("gofish_results.txt");
     int numCards = 5;
 
     Player p1("Asad");
@@ -37,11 +37,11 @@ int main( )
 
     dealHand(d, p1, numCards);
 
-    cout << "deck size " << d.size() << endl;
+   // cout << "deck size " << d.size() << endl;
 
     dealHand(d, p2, numCards);
 
-    cout << "deck size " << d.size() << endl;
+   // cout << "deck size " << d.size() << endl;
 
 
     outputfile << p1.getName() <<" has : " << p1.showHand() << endl;
@@ -50,33 +50,101 @@ int main( )
     outputfile << "P1 hand size " << p1.getHandSize() << endl;
     outputfile << "P2 hand size " << p2.getHandSize() << endl;
 
-    // put cards of same rank in book
-    //for(int i = 0; i < p1.getHandSize(); i++)
+
     Card *card1 = new Card();
     Card *card2 = new Card();
-   /* bool checker = true;
+    bool checker = true;
 
-    for(int i = 0; i < p1.getHandSize(); i++) {
-        //while(checker) {
-        while (p1.checkHandForBook(*card1, *card2)) {
-            cout << card1->getRank() << " " << card2->getRank() << endl;
-            cout << "true" << endl;
+
+    // checks hand for book right after cards dealt
+    // player 1
+    for(int i = 0; i < 2; i++) {
+        if (p1.checkHandForBook(*card1, *card2)) {
+         /*   cout << card1->toString() << " " << card2->toString() << endl;
+            cout << "true" << endl; */
             p1.bookCards(*card1, *card2);
+            p1.removeCardFromHand(*card1);
+
+          //  outputfile << "p1 new hand: " << p1.showHand() << endl;
+
+            p1.removeCardFromHand(*card2);
+
+          //  outputfile << "p1 new hand: " << p1.showHand() << endl;
         }
-    } */
-           /* else{
-                cout << "false" << endl;
-                checker = false;
-            } */
-       // }
+    }
+
+    // player 2
+    for(int i = 0; i < 2; i++) {
+        if (p2.checkHandForBook(*card1, *card2)) {
+           /* cout << card1->toString() << " " << card2->toString() << endl;
+            cout << "true" << endl; */
+            p2.bookCards(*card1, *card2);
+           // outputfile << "p2 books " << p2.showBooks() << endl;
+
+            p2.removeCardFromHand(*card1);
+
+          //  outputfile << " p2 new hand: " << p2.showHand() << endl;
+
+         //   outputfile << "p2 remove card " << card2->toString() << endl;
+            p2.removeCardFromHand(*card2);
+
+         //   outputfile << "p2 new hand: " << p2.showHand() << endl;
+        }
+    }
 
 
         Player currentAsker = p1;
         Player currentAnswerer = p2;
 
+    int askerbooksize = currentAsker.getBookSize();
+    int answererbooksize = currentAnswerer.getBookSize();
+
         // gameplay begins
-        for(int i = 0; i < 2; i++) {
-            //while((d.size() > 0) && (p1.getHandSize() > 0) && (p2.getHandSize() > 0)){
+       // for(int i = 0; i < 4; i++) {
+       while( (askerbooksize < 28) && (answererbooksize < 28) ){
+
+            outputfile << "\n" << endl;
+
+         /*   outputfile << "decksize " << d.size() << endl;
+           outputfile << "asker booksize " << currentAsker.getBookSize() << endl;
+           outputfile << "answerer booksize " << currentAnswerer.getBookSize() << endl; */
+
+            if(currentAsker.getHandSize() == 0){
+                outputfile << currentAsker.getName() << "'s hand is empty." << endl;
+                if(d.size() > 0) {
+                    Card dealt = d.dealCard();
+                    currentAsker.addCard(dealt);
+                    outputfile << currentAsker.getName() << " draws " << dealt.toString() << endl;
+                    Card *book1 = new Card();
+                    Card *book2 = new Card();
+                    if(currentAsker.checkHandForBook(*book1, *book2)){
+                        currentAsker.bookCards(*book1, *book2);
+                        currentAsker.removeCardFromHand(*book1);
+                        currentAsker.removeCardFromHand(*book2);
+
+                    }
+                }
+            }
+
+            if(currentAnswerer.getHandSize() == 0){
+                outputfile << currentAnswerer.getName() << "'s hand is empty." << endl;
+                if(d.size() > 0) {
+                    Card dealt = d.dealCard();
+                    currentAnswerer.addCard(dealt);
+                    outputfile << currentAnswerer.getName() << " draws " << dealt.toString() << endl;
+                    Card *book1 = new Card();
+                    Card *book2 = new Card();
+                    if(currentAnswerer.checkHandForBook(*book1, *book2)){
+                        currentAnswerer.bookCards(*book1, *book2);
+                        currentAnswerer.removeCardFromHand(*book1);
+                        currentAnswerer.removeCardFromHand(*book2);
+
+                    }
+                }
+            }
+
+          /*  outputfile << currentAsker.getName() << "'s hand -- " << currentAsker.showHand() << endl;
+            outputfile << currentAnswerer.getName() << "'s hand -- " << currentAnswerer.showHand() << endl; */
 
             string askerName = currentAsker.getName();
             string answererName = currentAnswerer.getName();
@@ -98,35 +166,117 @@ int main( )
 
             // checking through P2's hand to see if matches
             if (currentAnswerer.sameRankInHand(askercardChosen)) {
-                cout << "same rank true" << endl;
+               // cout << "same rank true" << endl;
                 outputfile << answererName << ": Yes, I have a " << askerrankChosen << "." << endl;
+
+                //answerer's hand now changes below
+                Card answererCardMatched = currentAnswerer.removeCardFromHand(askercardChosen);
+                //Book cards into asker's hand
+                // ---> figure out how to get the card found from sameRankinHand to book
+                currentAsker.addCard(answererCardMatched);
+
+               // outputfile << "after added -- " <<  currentAsker.getName() << " hand now: " << currentAsker.showHand() << endl ;
+               // outputfile << currentAnswerer.getName() << "'s hand now: " << currentAnswerer.showHand() << endl;
+
+                currentAsker.removeCardFromHand(askercardChosen);
+                currentAsker.removeCardFromHand(answererCardMatched);
+                //currentAnswerer.removeCardFromHand(answererCardMatched);
+
+                currentAsker.bookCards(askercardChosen, answererCardMatched);
+               // outputfile << currentAsker.getName() <<"book : " << currentAsker.showBooks() << endl;
+
+                // DEBUG //
+              //  outputfile << "after removed -- " <<  currentAsker.getName() << " hand now: " << currentAsker.showHand() << endl ;
+              //  outputfile << currentAnswerer.getName() << "'s hand now: " << currentAnswerer.showHand() << endl;
+
+              outputfile << currentAsker.getName() << " books the " << askercardChosen.getRank() << endl;
+
+            // go fish
             } else {
-                cout << "same rank false" << endl;
+              //  cout << "same rank false" << endl;
                 outputfile << answererName << ": Go Fish" << endl;
+
+                if(d.size() > 0) {
+                    Card dealt = d.dealCard();
+                    currentAsker.addCard(dealt);      //currentAsker draws from deck
+                    outputfile << currentAsker.getName() << " draws " << dealt.toString() << endl;
+                    Card *book1 = new Card();
+                    Card *book2 = new Card();
+                    if(currentAsker.checkHandForBook(*book1, *book2)){
+                        currentAsker.bookCards(*book1, *book2);
+                        currentAsker.removeCardFromHand(*book1);
+                        currentAsker.removeCardFromHand(*book2);
+                    }
+                }
+
+              //  outputfile << "askers hand -- " << currentAsker.showHand() << endl;
+
+
+                //checksHandforBook
             }
 
-            outputfile << "\n" << endl;
 
             // if asker is p1, switch asker to p2
             if (currentAsker.getName() == p1.getName()) {
-                currentAsker = p2;
-                currentAnswerer = p1;
+
+                Player holdAsker = currentAsker;
+                currentAsker = currentAnswerer;
+                currentAnswerer = holdAsker;
+
+                askerbooksize = currentAsker.getBookSize();
+                answererbooksize = currentAnswerer.getBookSize();
+
             }
                 // if asker is p2, switch asker to p1
             else {
-                currentAsker = p1;
-                currentAnswerer = p2;
+
+                Player holdAsker = currentAsker;
+                currentAsker = currentAnswerer;
+                currentAnswerer = holdAsker;
+
+                askerbooksize = currentAsker.getBookSize();
+                answererbooksize = currentAnswerer.getBookSize();
+
             }
 
-        }
+     //   }
+
+         /*  outputfile << "decksize " << d.size() << endl;
+           outputfile << "asker booksize " << currentAsker.getBookSize() << endl;
+           outputfile << "answerer booksize " << currentAnswerer.getBookSize() << endl; */
+
+           if((askerbooksize==26) && (answererbooksize==26)){
+               askerbooksize = 29;
+               answererbooksize = 29;
+           }
+
+     } // end of gameplay while loop
 
 
 
+    outputfile << "\n" << endl;
+
+    // determines winner
+    if(currentAnswerer.getBookSize() > currentAsker.getBookSize()){
+        outputfile << currentAnswerer.getName() << "'s book size: " << currentAnswerer.getBookSize() << endl;
+        outputfile << currentAsker.getName() << "'s book size: " << currentAsker.getBookSize() << endl;
+        outputfile << "\n" << endl;
+        outputfile << currentAnswerer.getName() << " wins!" << endl;
+    }
+    else if (currentAnswerer.getBookSize() == currentAsker.getBookSize()){
+        outputfile << currentAnswerer.getName() << "'s book size: " << currentAnswerer.getBookSize() << endl;
+        outputfile << currentAsker.getName() << "'s book size: " << currentAsker.getBookSize() << endl;
+        outputfile << "\n" << endl;
+        outputfile << "It's a tie!" << endl;
+    }
+    else {
+        outputfile << currentAnswerer.getName() << "'s book size: " << currentAnswerer.getBookSize() << endl;
+        outputfile << currentAsker.getName() << "'s book size: " << currentAsker.getBookSize() << endl;
+        outputfile << "\n" << endl;
+        outputfile << currentAsker.getName() << " wins!" << endl;
+    }
 
 
-
-
-     // }
 
     return EXIT_SUCCESS;
 }
