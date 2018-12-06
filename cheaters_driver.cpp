@@ -14,7 +14,7 @@
 
 using namespace std;
 
-/*function... might want it in some class?*/ // <<<------ Why put in class? Why do we need a class?
+/***** function: directory. puts file names into vector *****/
 int getdir (string dir, vector<string> &files)
 {
 
@@ -31,6 +31,7 @@ int getdir (string dir, vector<string> &files)
     closedir(dp);
     return 0;
 }
+
 
 /***** function: simplify string. removes special characters, leaves only lowercase and numbers *****/
 string simplify(string simplifyString){
@@ -64,35 +65,43 @@ string simplify(string simplifyString){
 }
 
 
+
 /***** function: hashKey. returns key to hash to. *****/
 int hashKey(string inputstring, int hashsize){
-    int sum=0;
+    int sum = 0;
     char *digit;
     int value = 0;
+    int hashIndex;
 
-    cout << "==== hashKey ====" << endl;
-    inputstring = "abclkjhgklfjlhjgfkjlkjhklfgjhklgjflkjghkljfgklhjfkgljhlkfgjlkhjd";
 
-    for(int i=0; i < inputstring.length();i++){
+   /* cout << "==== hashKey ====" << endl;
+    //inputstring = "abclkjhgklfjlhjgfkjlkjhklfgjhklgjflkjghkljfgklhjfkgljhlkfgjlkhjd";
+    cout << inputstring << endl; */
+
+
+    for(int i=0; i < inputstring.length(); i++){
         int j = i;
         int multiplier = 31;
         while (j>0){
-            multiplier*=multiplier;
+            multiplier *= multiplier;
             j--;
         }
+
         char test = inputstring.c_str()[inputstring.size()-i-1];
-        value = test - 97;
+        value = test;
         //cout << value << endl;
 
-        value*=multiplier;
-        sum+=value;
-        cout << "value " << value << endl;
+        value *= multiplier;
+        sum += value;
+       // cout << "value " << value << endl;
     }
 
-    cout << "return: " << sum%hashsize << endl;
-    cout << "========" << endl;
+    hashIndex = ((sum%hashsize)+hashsize)%hashsize;
 
-    return sum%hashsize;
+  /*  cout << "return: " << hashIndex << endl;
+    cout << "========" << endl; */
+
+    return hashIndex;
 }
 
 
@@ -139,12 +148,10 @@ int main(int argc, char *argv[])
         cout << i << " " << files[i] << endl;
     }
 
+    // CREATES ONE OBJECT FOR CLASS EACH INDEX
+    eachIndex index;
 
-    /*** Hash table ***/
-    const int HASHSIZE = 1000000;
-    eachIndex hashtable[HASHSIZE];
-
-    /*** OPENS FILE ***/
+    /******************* GOES THRU ALL FILES ********************/
     ifstream txtFile;
 
     for(int goThru = 2; goThru < files.size(); goThru++) {
@@ -163,7 +170,7 @@ int main(int argc, char *argv[])
 
         string word;
         int numWords = atoi(argv[2]);
-        cout << "n-word seq: " << numWords << endl; // DEBUG
+        //cout << "n-word seq: " << numWords << endl; // DEBUG
         int l = 5;
         int counter = 0;
         string nwordSeq = "";
@@ -175,10 +182,10 @@ int main(int argc, char *argv[])
             txtFile >> word;
             //cout << word << endl;
 
-            // DEBUG //
+         /*   // DEBUG //
             if (txtFile.eof()) {
                 cout << "endof " << txtFile.eof() << endl;
-            }
+            } */
 
         }
         cout << "num words = " << totalWords << endl; // DEBUG
@@ -222,16 +229,12 @@ int main(int argc, char *argv[])
                 chunks.push_back(simplified);
             }
 
-            for(int m = 0; m < chunks.size(); m++){
-                int key = hashKey(simplified, HASHSIZE);
-                // hash(hashtable, key(index), HASHSIZE, goThru)
-            }
-
 
             // DEBUG //
-            if(reachedEof) {
+           /* if(reachedEof) {
                 cout << nwordSeq << endl;
-            }
+                cout << counter++ << endl;
+            } */
             //cout << endl;
             //cout << counter << endl;
             // ---- //
@@ -257,9 +260,19 @@ int main(int argc, char *argv[])
 
         txtFile.close();
 
-        for(int m = 0; m < chunks.size(); m++){
+       /* for(int m = 0; m < chunks.size(); m++){
             cout << chunks[m] << endl;
+        } */
+
+        // gets index for hash table
+        // puts it into the table
+        for(int m = 0; m < chunks.size(); m++) {
+            int hashIndex = hashKey(chunks[m], index.getHashSize());
         }
+        // hash(hashtable, key(index), HASHSIZE, goThru);
+
+        chunks.clear();
+
 
         cout << "goThru: " << goThru << endl;
     }
