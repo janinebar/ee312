@@ -5,6 +5,13 @@
 #ifndef CHEATERS_CHEATERS_H
 #define CHEATERS_CHEATERS_H
 
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <ctype.h>
+
+using namespace std;
+
 class eachIndex{
 
 private:
@@ -46,6 +53,9 @@ public:
 
 };
 
+
+/****** FUNCTION DECLARATIONS *******/
+
 void eachIndex::hash(int hashIndex, int file) {
 
     /*
@@ -69,17 +79,28 @@ void eachIndex::hash(int hashIndex, int file) {
 
     insert->fileIndex = file;
     insert->next = NULL;
+
     head = hashtable[hashIndex];
     fileNode *ptr = head;
 
+    cout << "(class) index: " << hashIndex << endl; // DEBUG
+
     if(head == NULL){
         head = insert;
+
+        // DEBUG //
+        cout << "head success" << endl;
+        cout << "file " <<  head->fileIndex << endl;
     }
-    else {
+   /* else {
         while(ptr != NULL){
 
+            // add pointers to vector
+
+            cout <<
+
         }
-    }
+    } */
 
 };
 

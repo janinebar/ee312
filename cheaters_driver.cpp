@@ -81,7 +81,7 @@ int hashKey(string inputstring, int hashsize){
 
     for(int i=0; i < inputstring.length(); i++){
         int j = i;
-        int multiplier = 31;
+        int multiplier = 7;
         while (j>0){
             multiplier *= multiplier;
             j--;
@@ -93,13 +93,13 @@ int hashKey(string inputstring, int hashsize){
 
         value *= multiplier;
         sum += value;
-       // cout << "value " << value << endl;
+       //cout << "value " << value << endl;
     }
 
     hashIndex = ((sum%hashsize)+hashsize)%hashsize;
 
-  /*  cout << "return: " << hashIndex << endl;
-    cout << "========" << endl; */
+    //cout << "return: " << hashIndex << endl;
+   // cout << "========" << endl;
 
     return hashIndex;
 }
@@ -268,12 +268,13 @@ int main(int argc, char *argv[])
         // puts it into the table
         for(int m = 0; m < chunks.size(); m++) {
             int hashIndex = hashKey(chunks[m], index.getHashSize());
+            //cout << "(main) hashIndex " << hashIndex << endl;
+            index.hash(hashIndex, goThru);
+            // HERE: NEED TO PUT MATCHES INTO 2D ARRAY
+
         }
-        // hash(hashtable, key(index), HASHSIZE, goThru);
 
         chunks.clear();
-
-
         cout << "goThru: " << goThru << endl;
     }
 
