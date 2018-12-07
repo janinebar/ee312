@@ -42,7 +42,7 @@ public:
 
 
     /**** Hashing Function ****/
-    void hash(int hashIndex, int file);
+    vector<int> hash(int hashIndex, int file, vector<int> matchesVec);
 
     int getHashSize(){
         return HASHSIZE;
@@ -56,7 +56,7 @@ public:
 
 /****** FUNCTION DECLARATIONS *******/
 
-void eachIndex::hash(int hashIndex, int file) {
+vector<int> eachIndex::hash(int hashIndex, int file, vector<int> matchesVec) {
 
     /*
      * create temp node with file index
@@ -74,35 +74,71 @@ void eachIndex::hash(int hashIndex, int file) {
      *
      *  need to return that array of matches
      */
-
+    fileNode *temp = new fileNode;
     fileNode *insert = new fileNode;
 
-    insert->fileIndex = file;
-    insert->next = NULL;
+    temp->fileIndex = file;
+    temp->next = NULL;
+    insert = temp;
 
-    head = hashtable[hashIndex];
-    fileNode *ptr = head;
+    fileNode *ptr = new fileNode;
+    ptr = hashtable[hashIndex];
 
-    cout << "(class) index: " << hashIndex << endl; // DEBUG
+    cout << "hash tabling.." << endl;
 
-    if(head == NULL){
-        head = insert;
-
-        // DEBUG //
-        cout << "head success" << endl;
-        cout << "file " <<  head->fileIndex << endl;
+    if(hashtable[hashIndex] == NULL) {
+        hashtable[hashIndex] = insert;
     }
-   /* else {
+    else {
         while(ptr != NULL){
-
-            // add pointers to vector
-
-            cout <<
+            matchesVec.push_back(ptr->fileIndex);
+            //cout << "pushed: " << matchesVec[matchesVec.size()-1] << endl;
+            ptr = ptr->next;
 
         }
-    } */
+        ptr = insert;
+       /* cout << "head: " << hashtable[hashIndex]->fileIndex << endl;
+        cout << "inserted: " << ptr->fileIndex << endl; */
+    }
+
+
+    return matchesVec;
 
 };
 
+class matchValues{
+
+private:
+    int row;
+    int col;
+    int numMatches;
+
+public:
+
+    matchValues();
+    matchValues(int i, int j, int matches){
+
+        row = i;
+        col = j;
+        numMatches = matches;
+
+    }
+
+    int getRow(){
+
+        return row;
+    }
+
+    int getCol(){
+        return col;
+    }
+
+    int getMatches(){
+        return numMatches;
+    }
+
+    //~matchValues();
+
+};
 
 #endif //CHEATERS_CHEATERS_H
